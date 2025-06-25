@@ -4,7 +4,7 @@ package com.miniwas;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
-import com.miniwas.handlers.TestHandler;
+import com.miniwas.handlers.*;
 
 public class Main {
     static final int PORT = 8080;
@@ -12,7 +12,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Router 초기화 & 핸들러 등록
         Router router = new Router();
+        router.register("/", new HomeHandler());
+        router.register("/register", new RegisterHandler());
         router.register("/test", new TestHandler());
+
 
         // ServerSocket 생성
         ServerSocket serverSocket = null;
@@ -26,7 +29,6 @@ public class Main {
             while (true) {
                 // 클라이언트 요청을 기다림
                 try(Socket clientSocket = serverSocket.accept()) { //blocking 상태 -> 연결 수락: TCP 3-way handshake
-                    // TODO: RequestHandler 생성 및 handle() 호출
                     // 이제부터 소켓을 통해 getInputStream()/getOutputStream()으로 데이터 송수신이 가능
                     RequestHandler req = new RequestHandler(clientSocket, router);
                     req.handle();
