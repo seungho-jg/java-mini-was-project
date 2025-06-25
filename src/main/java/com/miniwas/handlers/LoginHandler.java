@@ -14,9 +14,10 @@ public class LoginHandler implements Handler {
             <head>
               <meta charset="UTF-8">
               <title>MiniWAS Login</title>
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css" />
             </head>
             <body>
-              <h1>안녕하세요~~!</h1>
+              <h1>로그인</h1>
               <form method="post" action="/login">
                 <input type="text"  name="id" placeholder="아이디" required/>
                 <input type="password" name="password" placeholder="패스워드" required/>

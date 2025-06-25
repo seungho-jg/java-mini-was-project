@@ -14,6 +14,7 @@ public class RegisterHandler implements Handler {
         <head>
           <meta charset="UTF-8">
           <title>MiniWAS Register</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css" />
         </head>
         <body>
           <h1>회원가입</h1>
@@ -23,7 +24,7 @@ public class RegisterHandler implements Handler {
             <input type="password" name="password" placeholder="패스워드" required/>
             <button type="submit">회원가입</button>
           </form>
-          <p><a href="/">로그인</a></p>
+          <p><a href="/login">로그인</a></p>
         </body>
         </html>
         """;
@@ -78,7 +79,6 @@ public class RegisterHandler implements Handler {
 
             body = new String(buffer, 0, totalRead);
         }
-
         System.out.println("POST Body: " + body);
 
         // body 파싱 Body: id=1313&username=1313&password=1313
