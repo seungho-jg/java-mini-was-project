@@ -1,16 +1,19 @@
 
 package com.miniwas;
 
+import com.miniwas.handlers.Handler;
+
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 
 public class RequestHandler {
     private final Socket client;
+    private final Router router;
 
-    public RequestHandler(Socket client) {
+    public RequestHandler(Socket client, Router router) {
         this.client = client;
+        this.router = router;
     }
 
     public void handle() throws IOException {
@@ -21,39 +24,32 @@ public class RequestHandler {
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 
-        // TODO: 요청 첫 줄 읽기 및 null 체크
+        // 요청 첫 줄 읽기 및 null 체크
         String requestLine = in.readLine(); // GET / HTTP/1.1
+        System.out.println(requestLine);
         // 1) null 체크: 아무것도 없다면 처리할 게 없으니 바로 리턴
         if (requestLine == null) {
             return;
         }
 
-        // TODO: method와 path 파싱 (split by space)
+        // method와 path 파싱 (split by space)
         String[] parts = requestLine.split(" ");
         String method = parts[0];
         String path = parts[1];
-        String version = parts[2];
-        System.out.println(method + path + version);
+        //String httpVersion = parts[2];
 
-        // TODO: 응답 바디 생성
-        String res = getResponse(method, path);
-        out.write(res);
-        out.flush();
-        // TODO: 클라이언트 소켓 닫기
+        // 라우터에서 핸들러 가져오기
+        Handler handler = router.resolve(path);
+
+        if (handler != null) {
+            handler.handle(in, out, method, path);
+        } else {
+            // 404 Not Found 응답
+            String res = new CustomResponse("404 error").getResponse();
+            out.write(res);
+            out.flush();
+        }
+        // 클라이언트 소켓 닫기
         client.close();
-    }
-
-    private static String getResponse(String method, String path) {
-        String body = "Hello from MiniWAS" + method + " " + path;
-        byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
-
-        // TODO: HTTP 응답 문자열 구성 (상태 라인, 헤더, 빈 줄, 본문)
-        String statusLine = "HTTP/1.1 200 OK\r\n";
-        String header = "Content-Type: text/plain; charset=UTF-8\r\n";
-        String header2 = "Content-Length: " + bodyBytes.length + "\r\n";
-        String empty = "\r\n"; // RFC 7230 3.5 “빈 줄이 헤더 섹션의 끝을 표시한다”
-
-        // TODO: 응답 전송
-        return statusLine + header + header2 + empty + body;
     }
 }
