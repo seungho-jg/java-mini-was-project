@@ -64,7 +64,7 @@ public class RegisterHandler implements Handler {
         }
 
         // Content-Length 만큼 바디 읽기
-        String body;
+        String body = "";
         if (contentLength > 0) {
             int totalRead = 0;
             char[] buffer = new char[contentLength];
