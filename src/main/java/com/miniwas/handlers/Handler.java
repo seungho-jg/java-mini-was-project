@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface Handler {
     /**
-     * TODO: 요청을 처리하고, HTTP 응답을 작성합니다.
+     * 요청을 처리하고, HTTP 응답을 작성합니다.
      * @param in      클라이언트 요청 스트림
      * @param out     클라이언트 응답 스트림
      * @param method  HTTP 메서드(GET, POST 등)
