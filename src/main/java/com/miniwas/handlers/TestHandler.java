@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import com.miniwas.CustomResponse;
+import com.miniwas.utils.HttpUtils;
 
 public class TestHandler implements Handler{
     @Override
@@ -12,8 +12,7 @@ public class TestHandler implements Handler{
                 BufferedWriter out,
                 String method,
                 String path) throws IOException {
-        String res = new CustomResponse("test").getResponse();
-        out.write(res);
+        HttpUtils.sendCustomResponse(out, "test");
         out.flush();
     }
 }

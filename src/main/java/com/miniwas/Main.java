@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // Router 초기화 & 핸들러 등록
         Router router = new Router();
-        router.register("/", new HomeHandler());
+        router.register("/login", new LoginHandler());
         router.register("/register", new RegisterHandler());
         router.register("/test", new TestHandler());
 

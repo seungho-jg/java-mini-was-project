@@ -5,6 +5,7 @@ import com.miniwas.handlers.Handler;
 
 import java.io.*;
 import java.net.Socket;
+import com.miniwas.utils.HttpUtils;
 
 
 public class RequestHandler {
@@ -45,8 +46,7 @@ public class RequestHandler {
             handler.handle(in, out, method, path);
         } else {
             // 404 Not Found 응답
-            String res = new CustomResponse("404 error").getResponse();
-            out.write(res);
+            HttpUtils.sendCustomResponse(out, "404 Notfound");
             out.flush();
         }
         // 클라이언트 소켓 닫기
