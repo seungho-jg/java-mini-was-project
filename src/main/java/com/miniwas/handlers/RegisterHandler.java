@@ -26,14 +26,16 @@ public class RegisterHandler implements Handler {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css" />
         </head>
         <body>
+        <main style="max-width: 300px; margin: 100px auto; text-align: center;">
           <h1>회원가입</h1>
           <form method="post" action="/register">
-            <input type="text" name="username" placeholder="아이디" required/>
-            <input type="text" name="nickname" placeholder="닉네임" required/>
-            <input type="password" name="password" placeholder="패스워드" required/>
+            <input type="text" name="username" placeholder="아이디" required style="width: 100%; max-width: 300px;"/>
+            <input type="text" name="nickname" placeholder="닉네임" required style="width: 100%; max-width: 300px;"/>
+            <input type="password" name="password" placeholder="패스워드" required style="width: 100%; max-width: 300px;"/>
             <button type="submit">회원가입</button>
           </form>
           <p><a href="/login">로그인</a></p>
+        </main>
         </body>
         </html>
         """;

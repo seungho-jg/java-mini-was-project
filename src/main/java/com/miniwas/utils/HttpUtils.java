@@ -1,8 +1,11 @@
 package com.miniwas.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpUtils {
     public static void sendHtmlResponse(BufferedWriter out, String html) throws IOException {
@@ -36,5 +39,18 @@ public class HttpUtils {
         out.write("Content-Length: " + bodyBytes.length + "\r\n");
         out.write("\r\n");
         out.write(msg);
+    }
+    public static Map<String,String> parseHeaders(BufferedReader in) throws IOException {
+        Map<String,String> headers = new HashMap<>();
+        String line;
+        while ((line = in.readLine()) != null && !line.isEmpty()) {
+            int idx = line.indexOf(':');
+            if (idx > 0) {
+                String name  = line.substring(0, idx).trim().toLowerCase();
+                String value = line.substring(idx + 1).trim();
+                headers.put(name, value);
+            }
+        }
+        return headers;
     }
 }

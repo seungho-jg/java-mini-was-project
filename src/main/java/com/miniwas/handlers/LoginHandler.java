@@ -31,13 +31,15 @@ public class LoginHandler implements Handler {
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css" />
             </head>
             <body>
+            <main style="max-width: 300px; margin: 100px auto; text-align: center;">
               <h1>로그인</h1>
               <form method="post" action="/login">
-                <input type="text"  name="id" placeholder="아이디" required/>
-                <input type="password" name="password" placeholder="패스워드" required/>
+                <input type="text"  name="id" placeholder="아이디" required style="width: 100%; max-width: 300px;"/>
+                <input type="password" name="password" placeholder="패스워드" required style="width: 100%; max-width: 300px;"/>
                 <button type="submit">로그인</button>
               </form>
               <p><a href="/register">회원가입</a></p>
+            </main>
             </body>
             </html>
             """;

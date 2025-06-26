@@ -20,7 +20,7 @@ public class Main {
 
         // Router 초기화 & 핸들러 등록
         Router router = new Router();
-        router.register("/", new HomeHandler(userDao, sessionManager));
+        router.register("/", new HomeHandler(sessionManager));
         router.register("/login", new LoginHandler(userDao, sessionManager));
         router.register("/register", new RegisterHandler(userDao));
         router.register("/test", new TestHandler());
