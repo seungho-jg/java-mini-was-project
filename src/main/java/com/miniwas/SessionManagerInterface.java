@@ -6,7 +6,7 @@ public interface SessionManagerInterface extends Create, Read, Update, Delete {
 }
 
 interface Create {
-    String create(String username);
+    String create(int id, String nickname);
 }
 
 interface Read {

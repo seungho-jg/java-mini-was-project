@@ -3,16 +3,18 @@ package com.miniwas;
 import java.time.Instant;
 
 public class SessionInfo {
-    private final String username;
+    private final int id;
+    private final String nickname;
     private final long createAt;
     private boolean disabled = false;
 
-    public SessionInfo(String username) {
-        this.username = username;
+    public SessionInfo(int id, String nickname) {
+        this.id = id;
         this.createAt = Instant.now().toEpochMilli();
+        this.nickname = nickname;
     }
-    public String getUsername() {
-        return this.username;
+    public String getNickname() {
+        return this.nickname;
     }
     public long getCreateAt() {
         return this.createAt;

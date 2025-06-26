@@ -51,7 +51,7 @@ public class HomeHandler implements Handler{
             String sessionId = CookieUtils.parse(cookieHeader, "SESSIONID");
             SessionInfo info = sessionManager.getOne(sessionId);
             if (info != null) {
-                String username = info.getUsername();
+                String username = info.getNickname();
                 String html = """
                     <!DOCTYPE html>
                     <html lang="ko">

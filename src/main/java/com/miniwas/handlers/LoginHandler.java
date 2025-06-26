@@ -105,7 +105,7 @@ public class LoginHandler implements Handler {
             if (find.isPresent()) {
                 User user = find.get();
                 // 세션 생성
-                String sessionId = this.sessionManager.create(user.getUsername());
+                String sessionId = this.sessionManager.create(user.getId(), user.getNickname());
 
                 // Set-Cookie + 리다이렉트 응답
                 out.write("HTTP/1.1 302 Found\r\n");
