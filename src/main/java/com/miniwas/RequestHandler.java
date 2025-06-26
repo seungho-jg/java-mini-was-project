@@ -12,7 +12,7 @@ public class RequestHandler {
     private final Socket client;
     private final Router router;
 
-    public RequestHandler(Socket client, Router router) {
+    public RequestHandler(Socket client, Router router, SessionManager sessionManager) {
         this.client = client;
         this.router = router;
     }
