@@ -3,7 +3,11 @@ package com.miniwas.handlers;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.net.URLDecoder;
+import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+
+import com.miniwas.db.UserDao;
 
 import com.miniwas.utils.HttpUtils;
 
@@ -19,7 +23,6 @@ public class RegisterHandler implements Handler {
         <body>
           <h1>회원가입</h1>
           <form method="post" action="/register">
-            <input type="text" name="id" placeholder="아이디" required/>
             <input type="text" name="username" placeholder="이름" required/>
             <input type="password" name="password" placeholder="패스워드" required/>
             <button type="submit">회원가입</button>
@@ -83,15 +86,28 @@ public class RegisterHandler implements Handler {
 
         // body 파싱 Body: id=1313&username=1313&password=1313
         String[] data = body.split("&");
-        System.out.println(Arrays.toString(data[0].split("=")));
-        System.out.println(Arrays.toString(data[1].split("=")));
-        System.out.println(Arrays.toString(data[2].split("=")));
+        String username = data[0].split("=")[1];
+        String password = data[1].split("=")[1];
+        String username_decoded= URLDecoder.decode(username, StandardCharsets.UTF_8);
+        System.out.println(username_decoded + " " + password);
 
         //회원가입 로직
+        UserDao dao = new UserDao();
+        try {
+            if (dao.createUser(username_decoded, password)) {
+                // 리다이렉션
+                HttpUtils.sendRedirect(out, "/login");
+            } else {
+                // 리다이렉션
+                HttpUtils.sendCustomResponse(out,"회원가입에 실패");
+            }
+        } catch (SQLException e) {
+            // 리다이렉션
+            HttpUtils.sendCustomResponse(out,"회원가입에 실패");
+        }
 
 
 
-        HttpUtils.sendRedirect(out, "/login");
     }
 
 }
