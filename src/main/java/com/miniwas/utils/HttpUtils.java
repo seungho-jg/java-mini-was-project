@@ -31,9 +31,10 @@ public class HttpUtils {
     }
     public static void sendCustomResponse(BufferedWriter out, String msg) throws IOException {
         byte[] bodyBytes = msg.getBytes(StandardCharsets.UTF_8);
-        out.write("HTTP/1.1 200 OK\\r\\n");
-        out.write("Content-Type: text/plain; charset=UTF-8\\r\\n");
-        out.write("Content-Length: \" + this.bodyBytes.length + \"\\r\\n");
+        out.write("HTTP/1.1 200 OK\r\n");
+        out.write("Content-Type: text/plain; charset=UTF-8\r\n");
+        out.write("Content-Length: " + bodyBytes.length + "\r\n");
         out.write("\r\n");
+        out.write(msg);
     }
 }
