@@ -12,6 +12,11 @@ import com.miniwas.db.UserDao;
 import com.miniwas.utils.HttpUtils;
 
 public class RegisterHandler implements Handler {
+    private final UserDao dao;
+
+    public RegisterHandler(UserDao dao) {
+        this.dao  = dao;
+    }
     private static final String REGISTER_HTML = """
         <!DOCTYPE html>
         <html>
@@ -66,7 +71,6 @@ public class RegisterHandler implements Handler {
         while (!(line = in.readLine()).isEmpty()) {
             if (line.startsWith("Content-Length:")) {
                 contentLength = Integer.parseInt(line.split(":")[1].trim());
-                System.out.println(line);
             }
         }
 
@@ -95,9 +99,8 @@ public class RegisterHandler implements Handler {
         System.out.println(username_decoded + " " + nickname_decoded);
 
         //회원가입 로직
-        UserDao dao = new UserDao();
         try {
-            if (dao.createUser(username_decoded, password, nickname_decoded)) {
+            if (this.dao.createUser(username_decoded, password, nickname_decoded)) {
                 // 리다이렉션
                 HttpUtils.sendRedirect(out, "/login");
             } else {

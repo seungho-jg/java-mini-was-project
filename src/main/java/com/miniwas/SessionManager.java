@@ -1,0 +1,56 @@
+package com.miniwas;
+
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+public class SessionManager implements SessionManagerInterface {
+    // 세션 만료 시간 (2분)
+    private static final long SESSION_OVER_MILLITS = 2 * 60 * 1000;
+    private final Map<String, SessionInfo> sessions = new HashMap<>();
+
+
+    @Override
+    public synchronized String create(String username) {
+        // 세션 아이디 생성시간 + hash값
+       String sessionId = Instant.now().toString() + System.identityHashCode(username);
+       sessions.put(sessionId, new SessionInfo(username));
+       return sessionId;
+    }
+
+    @Override
+    public synchronized Map<String, SessionInfo> getAll() {
+        return this.sessions;
+    }
+
+    @Override
+    public synchronized SessionInfo getOne(String sessionId) {
+        SessionInfo info = sessions.get(sessionId);
+        if (info != null && !info.isExpired(SESSION_OVER_MILLITS)) {
+            return info;
+        }
+        sessions.remove(sessionId);
+        return null;
+    }
+
+    @Override
+    public synchronized void grant(String sessionsId, boolean b) {
+        sessions.get(sessionsId).setDisabled(b);
+    }
+
+    @Override
+    public synchronized boolean delete(String sessionsId) {
+        return sessions.remove(sessionsId) != null;
+    }
+
+    @Override
+    public synchronized void cleanupExpired() {
+        sessions.forEach((key, value) -> {
+            if (value.isExpired(SESSION_OVER_MILLITS)) {
+                sessions.remove(key);
+            }
+        });
+    }
+}
