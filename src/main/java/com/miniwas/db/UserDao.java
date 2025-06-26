@@ -12,14 +12,15 @@ public class UserDao {
     /*
     * 회원가입: 새 사용자 추가
     * */
-    public boolean createUser(String username, String password) throws SQLException {
-        String sql = "INSERT INTO users(username, password) VALUES(?, ?)";
+    public boolean createUser(String username, String password, String nickname) throws SQLException {
+        String sql = "INSERT INTO users(username, password, nickname) VALUES(?, ?, ?)";
         Connection conn = null;
         try {
             conn = ConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
+            ps.setString(3, nickname);
             return ps.executeUpdate() == 1;
         } catch (SQLException e) {
             return false;
@@ -44,7 +45,8 @@ public class UserDao {
                 User user = new User(
                         rs.getInt("id"),
                         rs.getString("username"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("nickname")
                 );
                 return Optional.of(user);
             } else {

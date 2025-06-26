@@ -23,7 +23,8 @@ public class RegisterHandler implements Handler {
         <body>
           <h1>회원가입</h1>
           <form method="post" action="/register">
-            <input type="text" name="username" placeholder="이름" required/>
+            <input type="text" name="username" placeholder="아이디" required/>
+            <input type="text" name="nickname" placeholder="닉네임" required/>
             <input type="password" name="password" placeholder="패스워드" required/>
             <button type="submit">회원가입</button>
           </form>
@@ -87,14 +88,16 @@ public class RegisterHandler implements Handler {
         // body 파싱 Body: id=1313&username=1313&password=1313
         String[] data = body.split("&");
         String username = data[0].split("=")[1];
-        String password = data[1].split("=")[1];
+        String nickname = data[1].split("=")[1];
+        String password = data[2].split("=")[1];
         String username_decoded= URLDecoder.decode(username, StandardCharsets.UTF_8);
-        System.out.println(username_decoded + " " + password);
+        String nickname_decoded= URLDecoder.decode(nickname, StandardCharsets.UTF_8);
+        System.out.println(username_decoded + " " + nickname_decoded);
 
         //회원가입 로직
         UserDao dao = new UserDao();
         try {
-            if (dao.createUser(username_decoded, password)) {
+            if (dao.createUser(username_decoded, password, nickname_decoded)) {
                 // 리다이렉션
                 HttpUtils.sendRedirect(out, "/login");
             } else {
