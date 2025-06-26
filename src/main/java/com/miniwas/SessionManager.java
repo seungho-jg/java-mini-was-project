@@ -1,5 +1,6 @@
 package com.miniwas;
 
+import java.sql.Array;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,14 @@ public class SessionManager implements SessionManagerInterface {
     }
 
     @Override
-    public synchronized Map<String, SessionInfo> getAll() {
-        return this.sessions;
+    public synchronized String[] getAll() {
+        String[] res = new String[sessions.size()];
+        // 이름만 배열로 내보내기
+        int i = 0;
+        for (SessionInfo info : sessions.values()){
+            res[i++] = info.getUsername();
+        }
+        return res;
     }
 
     @Override
@@ -41,8 +48,8 @@ public class SessionManager implements SessionManagerInterface {
     }
 
     @Override
-    public synchronized boolean delete(String sessionsId) {
-        return sessions.remove(sessionsId) != null;
+    public synchronized void delete(String sessionsId) {
+        sessions.remove(sessionsId);
     }
 
     @Override

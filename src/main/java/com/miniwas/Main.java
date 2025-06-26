@@ -23,10 +23,8 @@ public class Main {
         router.register("/", new HomeHandler(sessionManager));
         router.register("/login", new LoginHandler(userDao, sessionManager));
         router.register("/register", new RegisterHandler(userDao));
-        router.register("/test", new TestHandler());
-
-
-
+        router.register("/logout", new LogoutHandler(sessionManager));
+        router.register("/test", new TestHandler(sessionManager));
 
         // ServerSocket 생성
         ServerSocket serverSocket = null;
@@ -36,7 +34,7 @@ public class Main {
             serverSocket = new ServerSocket(PORT); // 리스닝 소켓(수신 전용) 8080번 포트에 들어오는 연결 요청만 받음
             //serverSocket.bind(endpoint, backlog); // 생성될때 내부적으로 호출되어 생략 가능
 
-            // 서버 시작 메시지 출력 ("Server started at http://localhost:PORT")
+            // 서버 시작 메시지 출력
             System.out.println("Server started at http://localhost:" + PORT);
 
             while (true) {
@@ -44,7 +42,7 @@ public class Main {
                 Socket clientSocket = serverSocket.accept(); //blocking 상태 -> 연결 수락: TCP 3-way handshake
                 executor.submit(()->{
                     try {
-                        new RequestHandler(clientSocket, router, sessionManager).handle(); // 이제부터 소켓을 통해 getInputStream()/getOutputStream()으로 데이터 송수신이 가능
+                        new RequestHandler(clientSocket, router).handle(); // 이제부터 소켓을 통해 getInputStream()/getOutputStream()으로 데이터 송수신이 가능
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }

@@ -10,7 +10,7 @@ interface Create {
 }
 
 interface Read {
-    Map<String, SessionInfo> getAll();
+    String[] getAll();
     SessionInfo getOne(String sessionId);
 }
 
@@ -19,6 +19,6 @@ interface Update {
 }
 
 interface Delete {
-    boolean delete(String sessionId);
+    void delete(String sessionId);
     void cleanupExpired();
 }

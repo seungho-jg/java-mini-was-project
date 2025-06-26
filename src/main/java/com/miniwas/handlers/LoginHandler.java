@@ -113,6 +113,8 @@ public class LoginHandler implements Handler {
                 out.write("Location: /\r\n");
                 out.write("Content-Length: 0\r\n");
                 out.write("\r\n");
+            } else {
+                HttpUtils.sendCustomResponse(out, "사용자가 없습니다.");
             }
         } catch (Exception e) {
             System.out.println("로그인 실패");

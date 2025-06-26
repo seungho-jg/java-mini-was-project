@@ -62,7 +62,8 @@ public class HomeHandler implements Handler{
                     </head>
                     <body>
                       <main style="max-width:300px; margin:100px auto; text-align:center;">
-                        <h1>안녕하세요, %s님!</h1>
+                        <h2><b>안녕하세요!</b></h2>
+                        <h1>%s님</h1>
                         <p><a href="/logout">로그아웃</a></p>
                       </main>
                     </body>
