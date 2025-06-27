@@ -61,6 +61,8 @@ public class LoginHandler implements Handler {
                 default:
                     HttpUtils.sendMethodNotAllowed(out);
             }
+        } catch (IOException e) {
+            System.out.println("핸들 처리 중 예외 발생: " + e.getMessage());
         } finally {
             out.flush();
         }
@@ -100,7 +102,7 @@ public class LoginHandler implements Handler {
 
         ;
         try {
-            Optional<User> find = this.dao.findByCredentials(username_decoded, password);
+            Optional<User> find = this.dao.findUser(username_decoded, password);
             //로그인 성공
             if (find.isPresent()) {
                 User user = find.get();
