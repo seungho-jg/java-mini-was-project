@@ -10,11 +10,12 @@
 > - 의존성 관리: Maven
 
 ---
-![설계 문서 미리보기](images/01.png)
-![설계 문서 미리보기](images/02.png)
-![설계 문서 미리보기](images/03.png)
-![설계 문서 미리보기](images/04.png)
-![설계 문서 미리보기](images/05.png)
-![설계 문서 미리보기](images/06.png)
-![설계 문서 미리보기](images/07.png)
-![설계 문서 미리보기](images/08.png)
+![](/src/main/java/images/01.png)
+![](/src/main/java/images/02.png)
+![](/src/main/java/images/03.png)
+![](/src/main/java/images/04.png)
+![](/src/main/java/images/05.png)
+![](/src/main/java/images/06.png)
+![](/src/main/java/images/07.png)
+![](/src/main/java/images/08.png)
+
