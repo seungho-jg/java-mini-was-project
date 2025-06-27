@@ -13,12 +13,11 @@ public class Router {
     // 경로와 핸들러를 저장하는 Map
     private final Map<String, Handler> routes = new HashMap<>();
 
-    //
+    // 핸들러 등록
     public void register(String path, Handler handler) {
         routes.put(path, handler);
     }
-
-
+    // 핸들러 조회
     public Handler resolve(String path) {
         if (routes.get(path) != null) {
             return routes.get(path);

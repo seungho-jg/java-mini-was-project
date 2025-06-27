@@ -9,9 +9,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserDao {
-    /*
-    * 회원가입: 새 사용자 추가
-    * */
+
     public boolean createUser(String username, String password, String nickname) throws SQLException {
         String sql = "INSERT INTO users(username, password, nickname) VALUES(?, ?, ?)";
         Connection conn = null;
@@ -31,7 +29,7 @@ public class UserDao {
         }
     }
 
-    public Optional<User> findByCredentials(String username, String password) throws SQLException {
+    public Optional<User> findUser(String username, String password) throws SQLException {
         String sql = "SELECT * FROM users WHERE username == ? AND password = ?";
         Connection conn = null;
         try {
